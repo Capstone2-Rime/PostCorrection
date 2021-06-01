@@ -69,14 +69,17 @@ def bojung(a):
                         break
         # print('격조사3: ', time.time()-inittime)
         #print(new_word)
+        wordlen = len(word)
         word = hgtk.text.decompose(new_word)
         print('CSV탐색전: ', time.time()-inittime)
         for line in rdr: # csv 파일 한줄씩 접근해서 작은값 넣기
-            tmp = textdistance.levenshtein(word, line[0])
-            num = word.count('ᴥ')
-            if tmp < num:
-                # print('단어 추가: ', time.time()-inittime)
-                d.append((tmp, hgtk.text.compose(line[0])))
+            if abs(wordlen-len(line[0]))<2:
+                tmp = textdistance.levenshtein(word, line[1])
+                num = word.count('ᴥ')
+                if tmp < num:
+                    # print('단어 추가: ', time.time()-inittime)
+                    d.append((tmp, line[0]))
+        #print(d)
         # print('csv 탐색끝: ', time.time()-inittime)
         if d: # 최솟값에 해당하는 단어를 n에 넣음
             word = min(d)[1]+j

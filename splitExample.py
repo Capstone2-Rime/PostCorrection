@@ -12,6 +12,6 @@ wr = csv.writer(f1)
 for line in rdr:
     #print(line[0])
     word = hgtk.text.decompose(line[0])
-    wr.writerow([word])
+    wr.writerow([line[0], word])
 f.close()
 f1.close()
